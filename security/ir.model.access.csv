@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ars_reservation,ars.reservation,model_ars_reservation,base.group_user,1,1,1,1
+access_ars_ticket,ars.ticket,model_ars_ticket,base.group_user,1,1,1,1
+access_ars_passenger,ars.passenger,model_ars_passenger,base.group_user,1,1,1,1
+access_ars_aircraft,ars.aircraft,model_ars_aircraft,base.group_user,1,1,1,1
+access_ars_airport,ars.airport,model_ars_airport,base.group_user,1,1,1,1

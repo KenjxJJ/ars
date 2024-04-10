@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="ars_ticket_view_tree" model="ir.ui.view">
+            <field name="name">ars_ticket_view_tree</field>
+            <field name="model">ars.ticket</field>
+            <field name="arch" type="xml">
+                <tree string="Ticket Listings" sample="1">
+                    <field name="ticket_no"/>
+                    <field name="book_ref"/>
+                    <field name="passenger_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ars_ticket_view_form" model="ir.ui.view">
+            <field name="name">ars_ticket_form</field>
+            <field name="model">ars.ticket</field>
+            <field name="arch" type="xml">
+                <form string="Create a Passenger Ticket">
+                    <header>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="ticket_no"/>
+                            <h1 class="my-3">
+                                <field name="ticket_no" placeholder="Ticket Number(e.g AART10020)"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="passenger_id"/>
+                                <field name="contact_data"/>
+                            </group>
+                            <group>
+                                <field name="book_ref"/>
+                            </group>
+                        </group>
+                        <notebook>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="ars_ticket_action" model="ir.actions.act_window">
+            <field name="name">Tickets</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ars.ticket</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Passenger Ticket
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="ars_passenger_form_view" model="ir.ui.view">
+            <field name="name">ars.passenger.form</field>
+            <field name="model">ars.passenger</field>
+            <field name="arch" type="xml">
+                <form string="Passenger Information">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="ref"/>
+                            <h1>
+                                <field name="ref" placeholder="Passenger ID"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="create_date" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="fname"/>
+                                <field name="lname"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ars_passenger_tree_view" model="ir.ui.view">
+            <field name="name">ars.passenger.tree</field>
+            <field name="model">ars.passenger</field>
+            <field name="arch" type="xml">
+                <tree string="Passenger List" sample="1">
+                    <field name="ref"/>
+                    <field name="create_date"/>
+                    <field name="fname"/>
+                    <field name="lname"/>
+                </tree>
+            </field>
+        </record>
+
+                <record id="ars_passenger_kanban_view" model="ir.ui.view">
+                    <field name="name">ars.passenger.kanban</field>
+                    <field name="model">ars.passenger</field>
+                    <field name="arch" type="xml">
+                        <kanban>
+                            <field name="id"/>
+                            <field name="ref"/>
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div class="oe_kanban_global_click o_res_partner_kanban">
+                                        <div class="oe_kanban_details">
+                                            <strong class="o_kanban_record_title oe_partner_heading">
+                                                <field name="fname"/>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                    </field>
+                </record>
+
+        <record id="ars_passenger_action" model="ir.actions.act_window">
+            <field name="name">Passengers</field>
+            <field name="res_model">ars.passenger</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click New to create a Passenger.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

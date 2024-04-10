@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Root Menu -->
+        <menuitem id="ars_menu_root" name="ARS"/>
+
+        <!-- Menu Item Categories -->
+        <menuitem id="ars_reservation" name="Reservations" parent="ars_menu_root"/>
+        <menuitem id="ars_tickets" name="Tickets" sequence="20" parent="ars_menu_root"/>
+        <menuitem id="ars_contacts" name="Contacts" sequence="25" parent="ars_menu_root"/>
+
+
+        <!-- Menu Action -->
+        <menuitem id="ars_reservation_booking" name="Bookings" parent="ars_reservation"
+                  action="ars.ars_reservation_action" />
+        <menuitem id="ars_ticket" name="Tickets" parent="ars_tickets"
+                  action="ars.ars_ticket_action" />
+        <menuitem id="ars_passenger" name="Passengers" parent="ars_contacts"
+                  action="ars.ars_passenger_action" />
+
+
+    </data>
+</odoo>
