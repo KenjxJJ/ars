@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="ars_flight_form_view" model="ir.ui.view">
+            <field name="name">ars.flight.form</field>
+            <field name="model">ars.flight</field>
+            <field name="arch" type="xml">
+                <form string="Flights">
+                    <header>
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="flight_no"/>
+                            <h1>
+                                <field name="flight_no" placeholder="ARF 190290"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Schedule Details">
+                                <field name="scheduled_departure"/>
+                                <field name="departure_airport"/>
+                                <field name="scheduled_arrival"/>
+                                <field name="arrival_airport"/>
+                            </group>
+                            <group string="Real Time Readings">
+                                <field name="actual_departure"/>
+                                <field name="actual_arrival"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ars_flight_tree_view" model="ir.ui.view">
+            <field name="name">ars.flight.tree</field>
+            <field name="model">ars.flight</field>
+            <field name="arch" type="xml">
+                <tree string="Flights" sample="1">
+                    <field name="create_date" optional="hide"/>
+                    <field name="flight_no"/>
+                    <field name="scheduled_departure"/>
+                    <field name="departure_airport"/>
+                    <field name="actual_departure"/>
+                    <field name="scheduled_arrival"/>
+                    <field name="arrival_airport"/>
+                    <field name="actual_arrival"/>
+                    <field name="status" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ars_flight_search_view" model="ir.ui.view">
+            <field name="name">ars.flight.search</field>
+            <field name="model">ars.flight</field>
+            <field name="arch" type="xml">
+                <search string="Flights">
+                    <group expand="1" string="Group By">
+                        <filter string="Flight Status" name="filter_state"/>
+                    </group>
+                    <field name="flight_no"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="ars_flight_action" model="ir.actions.act_window">
+            <field name="name">ARS Flight</field>
+            <field name="res_model">ars.flight</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    All ARS related flights are created from. Create the first flight here.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

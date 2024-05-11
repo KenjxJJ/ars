@@ -22,6 +22,7 @@
         'security/ir.model.access.csv',
         'views/ars_passenger_views.xml',
         'views/ars_ticket_views.xml',
+        'views/ars_flight_views.xml',
         'views/ars_reservation_views.xml',
         'views/ars_menus.xml',
     ],
