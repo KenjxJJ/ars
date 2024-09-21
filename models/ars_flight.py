@@ -28,6 +28,7 @@ class AircraftFlight(models.Model):
     # Booking Information
     booking_ids = fields.One2many('ars.reservation', 'flight_bk_id', string='Flight Bookings')
     booking_no = fields.Integer('Total Bookings', compute="_compute_bookings_no")
+    tickets_no = fields.Integer('Passenger Tickets', compute="_compute_bookings_no")
     flight_ticket_ids = fields.One2many('ars.ticket', 'flight_ticket_id', string='Passenger Tickets')
     total_seats = fields.Integer(string='Total Seats', default=0)
     available_seats = fields.Integer(string='Total Seats', default=0)
@@ -37,8 +38,10 @@ class AircraftFlight(models.Model):
         for rec in self:
             if rec.booking_ids:
                 rec.booking_no = len(rec.booking_ids)
+                rec.tickets_no = len(rec.booking_ids.ticket_ids)
             else:
                 rec.booking_no = 0
+                rec.tickets_no = 0
 
     # ---------------------------------------------------------
     # Business Methods
@@ -60,12 +63,21 @@ class AircraftFlight(models.Model):
     def action_view_bookings(self):
         for rec in self:
             return {
-                "name": "Create Booking",
-                "domain": [('flight_bk_id', 'in', rec.booking_ids.ids)],
-                "view_type": "form",
-                "res_model": "ars.reservation.wizard",
-                "view_id": self.env.ref('ars.ars_reservation_wizard_view_form').id,
-                "view_mode": "form",
+                "name": _("Flight Bookings - %s") % rec.flight_no,
+                "domain": [('flight_bk_id', '=', rec.id)],
+                "res_model": "ars.reservation",
+                "view_mode": "tree,form",
+                "type": "ir.actions.act_window",
+                "context": {'create': False},
+            }
+
+    def action_view_tickets(self):
+        for rec in self:
+            return {
+                "name": _("Flight Bookings - %s") % rec.flight_no,
+                "domain": [('flight_ticket_id', 'in', rec.ids)],
+                "res_model": "ars.ticket",
+                "view_mode": "tree,form",
                 "type": "ir.actions.act_window",
                 "context": {'create': False},
             }

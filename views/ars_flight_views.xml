@@ -11,7 +11,25 @@
                         <button name="action_create_booking" type="object" string="Book Now" class="oe_highlight"/>
                         <field name="status" widget="statusbar"/>
                     </header>
+
                     <sheet>
+                        <div class="oe_button_box" name="button_box" invisible="booking_no == 0">
+                            <button name="action_view_bookings" type="object" class="oe_stat_button"
+                                    icon="fa-file">
+                                <div class="o_stat_info">
+                                    <field name="booking_no" string="Bookings"/>
+                                    <span class="o_stat_text">Bookings</span>
+                                </div>
+                            </button>
+                             <button name="action_view_tickets" type="object" class="oe_stat_button"
+                                    icon="fa-users">
+                                <div class="o_stat_info">
+                                    <field name="tickets_no" string="Passenger Tickets"/>
+                                    <span class="o_stat_text">Tickets</span>
+                                </div>
+                            </button>
+                        </div>
+
                         <div class="oe_title">
                             <label for="flight_no"/>
                             <h1>
