@@ -12,7 +12,7 @@ class CreateBookingWizard(models.TransientModel):
     _rec_name = 'passenger_id'
 
     passenger_id = fields.Many2one('ars.passenger')
-    flight_bk_id = fields.Many2one('ars.flight')
+    flight_bk_id = fields.Many2one('ars.flight', string="Flight")
     book_datetime = fields.Datetime(default=datetime.now())
     available_seats = fields.Integer(related='flight_bk_id.available_seats')
     remaining_seats = fields.Integer(default=0)
