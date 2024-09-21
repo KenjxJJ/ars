@@ -12,4 +12,8 @@ class AircraftTicket(models.Model):
     passenger_id = fields.Many2one('ars.passenger',string="Passenger Name")
     contact_data = fields.Char(string="Contact Information")
 
-    # state = fields.Selection([], default='draft', string="State")
+    # Flight Information
+    flight_ticket_id = fields.Many2one('ars.flight', string="Flight Number")
+    flight_available_seats = fields.Integer(string='Available Seats',
+                                            related='flight_ticket_id.available_seats')
+    ticket_price = fields.Float(string='Price',default=0.0)

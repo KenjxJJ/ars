@@ -8,6 +8,7 @@
                 <tree string="Bookings" sample="1">
                     <field name="name"/>
                     <field name="book_date" widget="date_picker"/>
+                    <field name="book_datetime" widget="date_picker"/>
                     <field name="total_amount" widget="float"/>
                     <field name="status" widget="badge"/>
                 </tree>
@@ -20,8 +21,8 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="set_booking" type="submit" class="btn-primary" string="Book Now"/>
-                        <button name="set_draft" type="submit" string="Reset Booking"/>
+                        <button name="set_booking" type="object" class="btn-primary" string="Book Now"/>
+                        <button name="set_draft" type="object" string="Reset Booking"/>
 
                         <field name="status" widget="statusbar"/>
                     </header>
@@ -35,9 +36,12 @@
                         </div>
                         <group>
                             <group>
+                                <field name="passenger_id"/>
                                 <field name="book_date" widget="date_picker"/>
+                                <field name="book_datetime" widget="date_picker"/>
                             </group>
                             <group>
+                                <field name="flight_bk_id"/>
                                 <field name="total_amount"/>
                             </group>
                         </group>

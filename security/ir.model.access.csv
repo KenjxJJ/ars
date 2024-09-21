@@ -5,3 +5,5 @@ access_ars_passenger,ars.passenger,model_ars_passenger,base.group_user,1,1,1,1
 access_ars_aircraft,ars.aircraft,model_ars_aircraft,base.group_user,1,1,1,1
 access_ars_airport,ars.airport,model_ars_airport,base.group_user,1,1,1,1
 access_ars_flight,ars.flight,model_ars_flight,base.group_user,1,1,1,1
+
+access_ars_reservation_wizard,ars.reservation.wizard,model_ars_reservation_wizard,base.group_user,1,1,1,1

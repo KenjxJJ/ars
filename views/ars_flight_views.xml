@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Flights">
                     <header>
+                        <button name="action_create_booking" type="object" string="Book Now" class="oe_highlight"/>
                         <field name="status" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -28,8 +29,16 @@
                                 <field name="actual_departure"/>
                                 <field name="actual_arrival"/>
                             </group>
+                            <group>
+                                <field name="total_seats"/>
+                                <field name="available_seats" readonly="1" force_save="1"/>
+                            </group>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>

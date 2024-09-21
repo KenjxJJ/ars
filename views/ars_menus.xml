@@ -5,9 +5,9 @@
         <menuitem id="ars_menu_root" name="ARS"/>
 
         <!-- Menu Item Categories -->
-        <menuitem id="ars_reservation" name="Reservations" parent="ars_menu_root"/>
+        <menuitem id="ars_flights" name="Flights" sequence="10" parent="ars_menu_root"/>
+        <menuitem id="ars_reservation" name="Reservations" sequence="15" parent="ars_menu_root"/>
         <menuitem id="ars_tickets" name="Tickets" sequence="20" parent="ars_menu_root"/>
-        <menuitem id="ars_flights" name="Flights" sequence="22" parent="ars_menu_root"/>
         <menuitem id="ars_contacts" name="Contacts" sequence="25" parent="ars_menu_root"/>
 
 

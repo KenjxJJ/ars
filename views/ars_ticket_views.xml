@@ -9,6 +9,7 @@
                     <field name="ticket_no"/>
                     <field name="book_ref"/>
                     <field name="passenger_id"/>
+                    <field name="ticket_price"/>
                 </tree>
             </field>
         </record>
@@ -34,7 +35,12 @@
                                 <field name="contact_data"/>
                             </group>
                             <group>
-                                <field name="book_ref"/>
+                                <field name="book_ref" widget="selection"/>
+                                <field name="flight_ticket_id"
+                                       context="{'default_flight_ticket_id': active_id }"
+                                       widget="selection" readonly="1" force_save="1"/>
+                                <field name="flight_available_seats"/>
+                                <field name="ticket_price"/>
                             </group>
                         </group>
                         <notebook>

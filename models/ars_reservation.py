@@ -11,6 +11,7 @@ class AirportReservation(models.Model):
 
     name = fields.Char(string="Booking Ref", help="Reservation Number")
     book_date = fields.Date(string="Date of Booking")
+    book_datetime = fields.Datetime(string="Booking Date")
     total_amount = fields.Float(string="Total Amount")
 
     # Tickets
@@ -18,7 +19,10 @@ class AirportReservation(models.Model):
                                  inverse_name="book_ref",
                                  string="Tickets", help="Tickets as per the booking")
 
-    # State
+    # Flights
+    flight_bk_id = fields.Many2one('ars.flight', string='Selected Flight')
+    passenger_id = fields.Many2one('ars.passenger', string='Booked by')
+
     status = fields.Selection([('draft', 'Draft'), ('save', 'Set')], default='draft', string="Booking Status")
 
     # ---------------------------------------------------------
