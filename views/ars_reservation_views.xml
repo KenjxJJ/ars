@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
+         <record id="seq_ars_reservation" model="ir.sequence">
+             <field name="name">Reservation Sequence</field>
+             <field name="code">ars.reservation</field>
+             <field name="prefix">ARS</field>
+             <field name="padding">5</field>
+             <field name="company_id" eval="False"/>
+         </record>
+
         <record id="ars_reservation_view_tree" model="ir.ui.view">
             <field name="name">ars_airport_reservation_view_tree</field>
             <field name="model">ars.reservation</field>
             <field name="arch" type="xml">
                 <tree string="Bookings" sample="1">
                     <field name="name"/>
-                    <field name="book_date" widget="date_picker"/>
                     <field name="book_datetime" widget="date_picker"/>
                     <field name="total_amount" widget="float"/>
                     <field name="status" widget="badge"/>
@@ -31,13 +38,12 @@
                         <div class="oe_title">
                             <label for="name"/>
                             <h1 class="my-3">
-                                <field name="name" placeholder="ARS10220"/>
+                                <field name="name" placeholder="ARS10220" readonly="1" force_save="1"/>
                             </h1>
                         </div>
                         <group>
                             <group>
                                 <field name="passenger_id"/>
-                                <field name="book_date" widget="date_picker"/>
                                 <field name="book_datetime" widget="date_picker"/>
                             </group>
                             <group>
@@ -47,11 +53,13 @@
                         </group>
                         <notebook>
                             <page name="ticket_ids" string="Tickets">
-                                <field name="ticket_ids" widget="one2many" mode="tree,kanban">
+                                <field name="ticket_ids" widget="one2many" mode="tree,kanban"
+                                        context="{'default_flight_ticket_id': active_id.flight_bk_id}">
                                     <tree readonly="1" options="{'no_create': True, 'no_open': True}">
                                         <field name="ticket_no"/>
                                         <field name="passenger_id"/>
                                         <field name="contact_data"/>
+                                        <field name="ticket_price"/>
                                     </tree>
                                 </field>
                             </page>

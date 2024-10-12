@@ -26,7 +26,7 @@
                         <div class="oe_title">
                             <label for="ticket_no"/>
                             <h1 class="my-3">
-                                <field name="ticket_no" placeholder="Ticket Number(e.g AART10020)"/>
+                                <field name="ticket_no" placeholder="Ticket Number(e.g FlightNo/T0021)" force_save="1"/>
                             </h1>
                         </div>
                         <group>
@@ -35,10 +35,9 @@
                                 <field name="contact_data"/>
                             </group>
                             <group>
-                                <field name="book_ref" widget="selection"/>
+                                <field name="book_ref" widget="selection" readonly="1" force_save="1" invisible="1"/>
                                 <field name="flight_ticket_id"
-                                       context="{'default_flight_ticket_id': active_id }"
-                                       widget="selection" readonly="1" force_save="1"/>
+                                       widget="selection" readonly="1"  invisible="1" force_save="1"/>
                                 <field name="flight_available_seats"/>
                                 <field name="ticket_price"/>
                             </group>
