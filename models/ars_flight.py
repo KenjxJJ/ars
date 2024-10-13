@@ -30,6 +30,11 @@ class AircraftFlight(models.Model):
     booking_no = fields.Integer('Total Bookings', compute="_compute_bookings_no")
     tickets_no = fields.Integer('Passenger Tickets', compute="_compute_bookings_no")
     flight_ticket_ids = fields.One2many('ars.ticket', 'flight_ticket_id', string='Passenger Tickets')
+
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
+    currency_id = fields.Many2one('res.currency', compute='_compute_company_currency',\
+                                  default=lambda self: self.env.user.company_id.currency_id)
+    cost_price = fields.Monetary(string='Cost Price', default=0, currency_field='currency_id', store=True)
     total_seats = fields.Integer(string='Total Seats', default=0)
     available_seats = fields.Integer(string='Total Seats', default=0)
 
@@ -42,6 +47,15 @@ class AircraftFlight(models.Model):
             else:
                 rec.booking_no = 0
                 rec.tickets_no = 0
+
+    @api.depends('company_id')
+    def _compute_company_currency(self):
+        for rec in self:
+            if rec.company_id:
+                rec.currency_id = rec.company_id.currency_id
+            else:
+                curr = self.env['res.currency'].search([], limit=1)
+                rec.currency_id = curr.id
 
     # ---------------------------------------------------------
     # Business Methods

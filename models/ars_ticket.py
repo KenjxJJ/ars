@@ -1,3 +1,5 @@
+from email.policy import default
+
 from odoo import models, fields, api, _
 
 
@@ -16,7 +18,12 @@ class AircraftTicket(models.Model):
     flight_ticket_id = fields.Many2one('ars.flight', string="Flight Number")
     flight_available_seats = fields.Integer(string='Available Seats',
                                             related='flight_ticket_id.available_seats')
-    ticket_price = fields.Float(string='Price',default=0.0)
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
+    currency_id = fields.Many2one('res.currency',compute='_compute_company_currency')
+    ticket_price = fields.Monetary(string='Price',
+                                   store=True,
+                                   currency_field='currency_id',
+                                   compute='_compute_flight_price_ticket')
 
     @api.onchange('book_ref')
     def _onchange_flight_number(self):
@@ -24,15 +31,30 @@ class AircraftTicket(models.Model):
             if rec.book_ref:
                 rec.flight_ticket_id = rec.book_ref.flight_bk_id
 
+    @api.depends('company_id')
+    def _compute_company_currency(self):
+        for rec in self:
+            if rec.company_id:
+                rec.currency_id = rec.company_id.currency_id
+            else:
+                curr = self.env['res.currency'].search([], limit=1)
+                rec.currency_id = curr.id
+
     @api.model
     def create(self, vals_list):
         ticket = super(AircraftTicket, self).create(vals_list)
 
         for rec, val in zip(ticket, vals_list):
-            # flight_ref = rec.flight_ticket_id.flight_no
             flight_ref = self.env['ars.flight'].browse(rec.flight_ticket_id.id).flight_no
             if flight_ref:
                 rec['ticket_no'] = f'{flight_ref}/TK000{ticket.id}'
             else:
                 rec['ticket_no'] = f'TK000{ticket.id}'
         return ticket
+
+    @api.depends('flight_ticket_id')
+    def _compute_flight_price_ticket(self):
+        for rec in self:
+            fl_price = rec.flight_ticket_id.cost_price if rec.flight_ticket_id else 0.0
+            rec.ticket_price = fl_price
+

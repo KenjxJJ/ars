@@ -13,6 +13,8 @@
                     </header>
 
                     <sheet>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
                         <div class="oe_button_box" name="button_box" invisible="booking_no == 0">
                             <button name="action_view_bookings" type="object" class="oe_stat_button"
                                     icon="fa-file">
@@ -47,7 +49,8 @@
                                 <field name="actual_departure"/>
                                 <field name="actual_arrival"/>
                             </group>
-                            <group>
+                            <group string="Extra Details">
+                                <field name="cost_price" string="Price Per Ticket"/>
                                 <field name="total_seats"/>
                                 <field name="available_seats" readonly="1" force_save="1"/>
                             </group>
