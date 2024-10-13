@@ -11,7 +11,11 @@ class AirportReservation(models.Model):
 
     name = fields.Char(string="Booking Ref", help="Reservation Number", default='/', readonly=1)
     book_datetime = fields.Datetime(string="Booking Date")
-    total_amount = fields.Float(string="Total Amount")
+
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
+    currency_id = fields.Many2one('res.currency', compute='_compute_company_currency')
+    total_amount = fields.Monetary(string="Total Amount", compute='_compute_total_ticket_prices',
+                                   store=True)
 
     # Tickets
     ticket_ids = fields.One2many(comodel_name="ars.ticket",
@@ -23,6 +27,21 @@ class AirportReservation(models.Model):
     passenger_id = fields.Many2one('ars.passenger', string='Booked by')
 
     status = fields.Selection([('draft', 'Draft'), ('save', 'Set')], default='draft', string="Booking Status")
+
+    @api.depends('company_id')
+    def _compute_company_currency(self):
+        for rec in self:
+            if rec.company_id:
+                rec.currency_id = rec.company_id.currency_id
+            else:
+                curr = self.env['res.currency'].search([], limit=1)
+                rec.currency_id = curr.id
+
+    @api.depends('ticket_ids')
+    def _compute_total_ticket_prices(self):
+        for rec in self:
+            rec.total_amount = sum(rec.ticket_ids.mapped('ticket_price')) if rec.ticket_ids else 0.0
+
 
     @api.model_create_multi
     def create(self, vals_list):

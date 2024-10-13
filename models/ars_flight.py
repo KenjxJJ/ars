@@ -36,17 +36,24 @@ class AircraftFlight(models.Model):
                                   default=lambda self: self.env.user.company_id.currency_id)
     cost_price = fields.Monetary(string='Cost Price', default=0, currency_field='currency_id', store=True)
     total_seats = fields.Integer(string='Total Seats', default=0)
-    available_seats = fields.Integer(string='Total Seats', default=0)
+    available_seats = fields.Integer(string='Available Seats', default=0, compute='_compute_bookings_no')
+
+    #TODO: Set validation on confirming the flight in 2nd stage
 
     @api.depends('booking_ids')
     def _compute_bookings_no(self):
         for rec in self:
+            seats_no_per_flight = rec.total_seats
             if rec.booking_ids:
                 rec.booking_no = len(rec.booking_ids)
                 rec.tickets_no = len(rec.booking_ids.ticket_ids)
+
+                # Reallocate remaining seats
+                rec.available_seats = seats_no_per_flight - rec.tickets_no
             else:
                 rec.booking_no = 0
                 rec.tickets_no = 0
+                rec.available_seats = seats_no_per_flight
 
     @api.depends('company_id')
     def _compute_company_currency(self):
