@@ -7,9 +7,9 @@
             <field name="arch" type="xml">
                 <tree string="Ticket Listings" sample="1">
                     <field name="ticket_no"/>
-                    <field name="book_ref"/>
+                    <field name="book_ref" string="Booking Ref"/>
                     <field name="passenger_id"/>
-                    <field name="ticket_price" sum="Total"/>
+                    <field name="ticket_price" sum="Total" widget="monetary"/>
                 </tree>
             </field>
         </record>

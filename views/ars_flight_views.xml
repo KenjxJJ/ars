@@ -8,8 +8,17 @@
             <field name="arch" type="xml">
                 <form string="Flights">
                     <header>
-                        <button name="action_create_booking" type="object" string="Book Now" class="oe_highlight"/>
-                        <field name="status" widget="statusbar"/>
+                        <button name="action_create_booking" type="object" string="Book Now" class="oe_highlight"
+                            invisible="status not in ('pending','depart')"/>
+                          <button name="action_confirm" type="object" string="Confirm" class="oe_highlight"
+                            invisible="status not in ('draft')"/>
+                          <button name="action_set_departure" type="object" string="Set to Departure" class="oe_highlight"
+                            invisible="status not in ('pending')"/>
+                          <button name="action_complete" type="object" string="Set to Arrival" class="oe_highlight"
+                            invisible="status not in ('depart')"/>
+                          <button name="action_cancel" type="object" string="Cancel"
+                            invisible="status not in ('draft','pending','depart')"/>
+                        <field name="status" widget="statusbar" statusbar_visible="draft,pending,depart,arrived"/>
                     </header>
 
                     <sheet>
@@ -35,23 +44,23 @@
                         <div class="oe_title">
                             <label for="flight_no"/>
                             <h1>
-                                <field name="flight_no" placeholder="ARF 190290"/>
+                                <field name="flight_no" placeholder="ARF 190290" readonly="status not in 'draft'"/>
                             </h1>
                         </div>
                         <group>
                             <group string="Schedule Details">
-                                <field name="scheduled_departure"/>
-                                <field name="departure_airport"/>
-                                <field name="scheduled_arrival"/>
-                                <field name="arrival_airport"/>
+                                <field name="scheduled_departure" readonly="status not in 'draft'"/>
+                                <field name="departure_airport" readonly="status not in 'draft'"/>
+                                <field name="scheduled_arrival" readonly="status not in 'draft'"/>
+                                <field name="arrival_airport" readonly="status not in 'draft'"/>
                             </group>
                             <group string="Real Time Readings">
-                                <field name="actual_departure"/>
-                                <field name="actual_arrival"/>
+                                <field name="actual_departure" readonly="status not in 'draft'"/>
+                                <field name="actual_arrival" readonly="status not in 'draft'"/>
                             </group>
                             <group string="Extra Details">
-                                <field name="cost_price" string="Price Per Ticket"/>
-                                <field name="total_seats"/>
+                                <field name="cost_price" string="Price Per Ticket" readonly="status not in 'draft'"/>
+                                <field name="total_seats" readonly="status not in 'draft'"/>
                                 <field name="available_seats" readonly="1" force_save="1"/>
                             </group>
                         </group>
@@ -68,7 +77,10 @@
             <field name="name">ars.flight.tree</field>
             <field name="model">ars.flight</field>
             <field name="arch" type="xml">
-                <tree string="Flights" sample="1">
+                <tree string="Flights" sample="1"
+                      decoration-success="status == 'arrived'" decoration-muted="status == ('draft','pending')"
+                      decoration-info="status == 'depart'" decoration-warning="status == 'cancel'">
+
                     <field name="create_date" optional="hide"/>
                     <field name="flight_no"/>
                     <field name="scheduled_departure"/>
@@ -77,7 +89,11 @@
                     <field name="scheduled_arrival"/>
                     <field name="arrival_airport"/>
                     <field name="actual_arrival"/>
-                    <field name="status" widget="badge"/>
+                    <field name="status" widget="badge" decoration-success="status == 'arrived'"
+                           decoration-muted="status == ('draft','pending')"
+                           decoration-info="status == 'depart'" decoration-warning="status == 'cancel'"
+                    />
+
                 </tree>
             </field>
         </record>
@@ -88,7 +104,7 @@
             <field name="arch" type="xml">
                 <search string="Flights">
                     <group expand="1" string="Group By">
-                        <filter string="Flight Status" name="filter_state"/>
+                        <filter string="Flight Status" name="filter_status"/>
                     </group>
                     <field name="flight_no"/>
                 </search>
