@@ -18,8 +18,14 @@ class CreateBookingWizard(models.TransientModel):
     remaining_seats = fields.Integer(default=0)
     total_seats_requested = fields.Integer(string='Seats Booked',
                                            help='Requested number of seats or number of tickets to make!',
-                                           default=0)
+                                           default=1)
     create_tickets = fields.Boolean(default=False, store=False)
+
+    @api.constrains('total_seats_requested')
+    def _check_total_seats_requested(self):
+        for rec in self:
+            if rec.total_seats_requested < 1:
+                raise UserError("Please select atleast one seat of booking before confirmation.")
 
     def book_now(self):
         for record in self:

@@ -13,11 +13,21 @@
             <field name="name">ars_airport_reservation_view_tree</field>
             <field name="model">ars.reservation</field>
             <field name="arch" type="xml">
-                <tree string="Bookings" sample="1">
+                <tree string="Bookings" sample="1"
+                      decoration-success="payment_state in ['paid','in_payment']"
+                      decoration-info="status == 'invoiced'"
+                      decoration-muted="status == 'set'">
                     <field name="name"/>
                     <field name="book_datetime" widget="date_picker"/>
                     <field name="total_amount" widget="float"/>
-                    <field name="status" widget="badge"/>
+                    <field name="status" widget="badge"
+                           decoration-info="status == 'invoiced'"
+                           decoration-muted="status == 'set'"
+                    />
+                    <field name="payment_state" widget="badge"
+                           decoration-success="payment_state in ['paid','in_payment']"
+                           decoration-info="payment_state == 'partial'"
+                    />
                 </tree>
             </field>
         </record>
@@ -29,8 +39,8 @@
                 <form>
                     <header>
                         <button name="set_booking" type="object" class="btn-primary" string="Book Now"/>
+                        <button name="action_create_invoice" type="object" string="Issue Invoice" class="btn-secondary" invisible="status not in 'save'"/>
                         <button name="set_draft" type="object" string="Reset Booking"/>
-
                         <field name="status" widget="statusbar"/>
                     </header>
 
@@ -49,6 +59,7 @@
                                 <field name="book_datetime" widget="date_picker"/>
                             </group>
                             <group>
+                                <field name="invoice_id" readonly="1" invisible="status not in 'invoiced'"/>
                                 <field name="flight_bk_id"/>
                                 <field name="total_amount"/>
                             </group>
@@ -61,7 +72,7 @@
                                         <field name="ticket_no"/>
                                         <field name="passenger_id"/>
                                         <field name="contact_data"/>
-                                        <field name="ticket_price"/>
+                                        <field name="ticket_price" sum="Total" widget="monetary"/>
                                     </tree>
                                 </field>
                             </page>
