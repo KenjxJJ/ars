@@ -21,6 +21,7 @@ class AircraftFlight(models.Model):
                                ('arrived', 'Completed'),
                                ('cancel', 'Cancelled')], default='draft', tracking=True)
     aircraft_code = fields.Char(string="Airport Code")
+    aircraft_id = fields.Many2one('ars.aircraft', 'Airplane')
 
     # Actual Flight Information
     actual_departure = fields.Datetime(tracking=True)

@@ -18,8 +18,10 @@
                   action="ars.ars_ticket_action" />
         <menuitem id="ars_passenger" name="Passengers" parent="ars_contacts"
                   action="ars.ars_passenger_action" />
-        <menuitem name="Flights" id="ars_flight_menu" parent="ars_flights" action="ars.ars_flight_action"/>
-
+        <menuitem name="Flights" id="ars_flight_menu" parent="ars_flights"
+                  action="ars.ars_flight_action"/>
+        <menuitem id="menu_ars_aircraft" name="Aircrafts" parent="ars_flights"
+                  action="action_ars_aircraft"/>
 
     </data>
 </odoo>

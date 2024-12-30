@@ -49,6 +49,8 @@
                         </div>
                         <group>
                             <group string="Schedule Details">
+                                <field name="aircraft_id" options="{'no_create': 1 }" required="status not in 'draft'"
+                                    readonly="status not in 'draft'"/>
                                 <field name="scheduled_departure" readonly="status not in 'draft'"/>
                                 <field name="departure_airport" readonly="status not in 'draft'"/>
                                 <field name="scheduled_arrival" readonly="status not in 'draft'"/>

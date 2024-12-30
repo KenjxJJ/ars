@@ -24,6 +24,7 @@
         'views/ars_ticket_views.xml',
         'views/ars_flight_views.xml',
         'views/ars_reservation_views.xml',
+        'views/ars_aircraft_views.xml',
         'wizards/ars_reservation_wizard.xml',
         'views/ars_menus.xml',
     ],
