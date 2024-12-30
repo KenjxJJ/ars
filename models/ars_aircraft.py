@@ -25,3 +25,5 @@ class Aircraft(models.Model):
         ('in_maintenance', 'In Maintenance'),
         ('retired', 'Retired')
     ], string='Status', default='active')
+
+    crew_persons_ids = fields.One2many('hr.employee', 'crew_id', string='Crew Team')
