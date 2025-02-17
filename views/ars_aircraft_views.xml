@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_ars_aircraft_tree" model="ir.ui.view">
+        <field name="name">ars.aircraft.tree</field>
+        <field name="model">ars.aircraft</field>
+        <field name="arch" type="xml">
+            <tree string="Aircraft List">
+                <field name="name"/>
+                <field name="model"/>
+                <field name="manufacturer"/>
+                <field name="seating_capacity"/>
+                <field name="status"/>
+                <field name="current_location_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_ars_aircraft_form" model="ir.ui.view">
+        <field name="name">ars.aircraft.form</field>
+        <field name="model">ars.aircraft</field>
+        <field name="arch" type="xml">
+            <form string="Aircraft Details">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="model"/>
+                            <field name="manufacturer"/>
+                            <field name="serial_number"/>
+                        </group>
+                        <group>
+                            <field name="seating_capacity"/>
+                            <field name="business_class_seats"/>
+                            <field name="economy_class_seats"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="current_location_id"/>
+                            <field name="crew_requirement"/>
+                            <field name="status"/>
+                        </group>
+                        <group>
+                            <field name="fuel_capacity"/>
+                            <field name="range"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Assigned Flights">
+                            <field name="assigned_flights">
+                                <tree editable="bottom">
+                                    <field name="flight_no"/>
+                                    <field name="scheduled_departure"/>
+                                    <field name="departure_airport"/>
+                                    <field name="scheduled_arrival"/>
+                                    <field name="actual_arrival"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="view_ars_aircraft_kanban" model="ir.ui.view">
+        <field name="name">ars.aircraft.kanban</field>
+        <field name="model">ars.aircraft</field>
+        <field name="arch" type="xml">
+            <kanban string="Aircraft Kanban">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-att-class="'oe_kanban_global_click'">
+                            <div class="oe_kanban_content">
+                                <strong><field name="name"/></strong>
+                                <div><field name="model"/></div>
+                                <div><field name="manufacturer"/></div>
+                                <div>
+                                    <span>Status:</span>
+                                    <field name="status"/>
+                                </div>
+                                <div>
+                                    <span>Location:</span>
+                                    <field name="current_location_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_ars_aircraft" model="ir.actions.act_window">
+        <field name="name">Aircraft</field>
+        <field name="res_model">ars.aircraft</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create the first Aircraft Record
+            </p>
+        </field>
+    </record>
+
+</odoo>
