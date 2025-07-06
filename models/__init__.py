@@ -6,3 +6,4 @@ from . import ars_airport
 from . import ars_aircraft
 from . import ars_flight
 from . import account_move
+from . import ars_employee

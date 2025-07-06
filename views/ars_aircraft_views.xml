@@ -60,6 +60,16 @@
                                 </tree>
                             </field>
                         </page>
+                        <page string="Crew Team">
+                            <field name="crew_persons_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="department_id"/>
+                                    <field name="job_id"/>
+                                    <field name="work_phone"/>
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
             </form>
@@ -76,9 +86,15 @@
                     <t t-name="kanban-box">
                         <div t-att-class="'oe_kanban_global_click'">
                             <div class="oe_kanban_content">
-                                <strong><field name="name"/></strong>
-                                <div><field name="model"/></div>
-                                <div><field name="manufacturer"/></div>
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    <field name="model"/>
+                                </div>
+                                <div>
+                                    <field name="manufacturer"/>
+                                </div>
                                 <div>
                                     <span>Status:</span>
                                     <field name="status"/>
